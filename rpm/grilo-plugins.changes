@@ -1,0 +1,13 @@
+* Fri Mar 30 2013 Mohammed Hassan <mohammed.hassan@jollamobile.com> - 0.2.6
+- New release
+- Added Rai.tv sub package
+
+* Mon Oct 15 2012 Mohammed Hassan <mohammed.hassan@jollamobile.com> - 0.2.2
+- requires tracker-sparql-0.14 for building against tracker 0.14.2
+
+* Wed Oct 05 2012 Mohammed Hassan <mohammed.hassan@jollamobile.com> - 0.2.2
+- New release
+- Use tracker-sparql-0.10 instead of tracker-client-0.10 as BuildRequires
+
+* Wed Sep 19 2012 Mohammed Hassan <mohammed.hassan@jollamobile.com> - 0.2.0
+- Initial spec file
