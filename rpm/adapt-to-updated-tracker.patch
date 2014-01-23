@@ -1,0 +1,25 @@
+From ae58207c4c37d07c025e9d208ae89020800da06f Mon Sep 17 00:00:00 2001
+From: Islam Amer <islam.amer@jollamobile.com>
+Date: Thu, 23 Jan 2014 14:45:27 +0200
+Subject: [PATCH] [packaging] adapt to updated tracker
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 27751d8..654894f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -146,7 +146,7 @@ PKG_CHECK_MODULES(GMIME, gmime-2.6,
+                                                    HAVE_GMIME=no)])
+ # Search available Tracker version
+ trackerpkg="tracker-sparql-0.10"
+-m4_foreach([VERSION], [[0.10], [0.11], [0.12], [0.14], [0.15], [0.16]],
++m4_foreach([VERSION], [[0.10], [0.11], [0.12], [0.14], [0.15], [0.16], [0.18]],
+                       [PKG_CHECK_EXISTS([tracker-sparql-VERSION >= 0.10.5],
+                                         [ trackerpkg="tracker-sparql-VERSION" ])
+                       ])
+-- 
+1.8.5.3
+

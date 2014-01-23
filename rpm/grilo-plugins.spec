@@ -7,9 +7,10 @@ License:    LGPLv2.1
 URL:        https://live.gnome.org/Grilo
 Source0:    http://ftp.gnome.org/pub/GNOME/sources/grilo-plugins/0.2/%{name}-%{version}.tar.xz
 Patch0:     disable-gnome-doc.patch
+Patch1:     adapt-to-updated-tracker.patch
 BuildRequires:  pkgconfig(grilo-0.2)
 BuildRequires:  pkgconfig(grilo-net-0.2)
-BuildRequires:  pkgconfig(tracker-sparql-0.14)
+BuildRequires:  pkgconfig(tracker-sparql-0.18)
 BuildRequires:  pkgconfig(libgdata)
 BuildRequires:  pkgconfig(libquvi)
 BuildRequires:  pkgconfig(sqlite3)
@@ -172,6 +173,7 @@ Grilo plugin - Mangnatune
 %prep
 %setup -q -n %{name}-%{version}/%{name}
 %patch0 -p1
+%patch1 -p1
 
 %build
 echo "EXTRA_DIST = missing-gtk-doc" > gtk-doc.make
