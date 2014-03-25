@@ -10,7 +10,7 @@ Patch0:     disable-gnome-doc.patch
 Patch1:     adapt-to-updated-tracker.patch
 BuildRequires:  pkgconfig(grilo-0.2)
 BuildRequires:  pkgconfig(grilo-net-0.2)
-BuildRequires:  pkgconfig(tracker-sparql-0.18)
+BuildRequires:  pkgconfig(tracker-sparql-1.0)
 BuildRequires:  pkgconfig(libgdata)
 BuildRequires:  pkgconfig(libquvi)
 BuildRequires:  pkgconfig(sqlite3)
