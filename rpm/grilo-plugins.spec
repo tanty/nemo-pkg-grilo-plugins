@@ -1,21 +1,27 @@
 Name:       grilo-plugins
 Summary:    Grilo plugins
-Version:    0.2.6
+Version:    0.2.14
 Release:    1
 Group:      Development/Libraries
 License:    LGPLv2.1
 URL:        https://live.gnome.org/Grilo
 Source0:    http://ftp.gnome.org/pub/GNOME/sources/grilo-plugins/0.2/%{name}-%{version}.tar.xz
-Patch0:     disable-gnome-doc.patch
-Patch1:     adapt-to-updated-tracker.patch
+Patch0:     disable-doc.patch
 BuildRequires:  pkgconfig(grilo-0.2)
 BuildRequires:  pkgconfig(grilo-net-0.2)
+BuildRequires:  pkgconfig(grilo-pls-0.2)
 BuildRequires:  pkgconfig(tracker-sparql-1.0)
 BuildRequires:  pkgconfig(libgdata)
-BuildRequires:  pkgconfig(libquvi)
+BuildRequires:  pkgconfig(oauth)
+BuildRequires:  pkgconfig(libquvi-0.9)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(gmime-2.6)
 BuildRequires:  pkgconfig(libgcrypt)
+#BuildRequires:  pkgconfig(libmediaart-2.0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gio-unix-2.0)
+BuildRequires:  pkgconfig(libsoup-2.4)
+BuildRequires:  pkgconfig(totem-plparser) >= 3.4.1
 BuildRequires:  pkgconfig(rest-0.7)
 BuildRequires:  intltool
 BuildRequires:  gnome-common
@@ -83,12 +89,12 @@ Summary:    Grilo plugin - podcasts
 Grilo plugin - podcasts
 
 
-%package    -n grilo-plugin-bookmarks
-Group:      Multimedia
-Summary:    Grilo plugin - bookmarks
+# %package    -n grilo-plugin-bookmarks
+# Group:      Multimedia
+# Summary:    Grilo plugin - bookmarks
 
-%description -n grilo-plugin-bookmarks
-Grilo plugin - bookmarks
+# %description -n grilo-plugin-bookmarks
+# Grilo plugin - bookmarks
 
 
 %package    -n grilo-plugin-shoutcast
@@ -147,12 +153,12 @@ Summary:    Grilo plugin - bliptv
 Grilo plugin - bliptv
 
 
-%package    -n grilo-plugin-localmetadata
-Group:      Multimedia
-Summary:    Grilo plugin - localmetadata
+# %package    -n grilo-plugin-localmetadata
+# Group:      Multimedia
+# Summary:    Grilo plugin - localmetadata
 
-%description -n grilo-plugin-localmetadata
-Grilo plugin - localmetadata
+# %description -n grilo-plugin-localmetadata
+# Grilo plugin - localmetadata
 
 
 %package    -n grilo-plugin-raitv
@@ -170,10 +176,23 @@ Summary:    Grilo plugin - Magnatune
 %description -n grilo-plugin-magnatune
 Grilo plugin - Mangnatune
 
+%package    -n grilo-plugin-dleyna
+Group:      Multimedia
+Summary:    Grilo plugin - dLeyna
+
+%description -n grilo-plugin-dleyna
+A Grilo plugin for browsing DLNA servers
+
+%package    -n grilo-plugin-opensubtitles
+Group:      Multimedia
+Summary:    Grilo plugin - OpenSubtitles Provider
+
+%description -n grilo-plugin-opensubtitles
+A Grilo plugin that gets a list of subtitles for a video
+
 %prep
 %setup -q -n %{name}-%{version}/%{name}
 %patch0 -p1
-%patch1 -p1
 
 %build
 echo "EXTRA_DIST = missing-gtk-doc" > gtk-doc.make
@@ -181,7 +200,7 @@ echo "EXTRA_DIST = missing-gnome-doc" > gnome-doc-utils.make
 REQUIRED_AUTOMAKE_VERSION=1.8 USE_GNOME2_MACROS=1 USE_COMMON_DOC_BUILD=no NOCONFIGURE=1 \
 . gnome-autogen.sh
 
-%configure --disable-static --enable-filesystem --enable-jamendo --enable-lastfm-albumart --enable-flickr --enable-podcasts --enable-bookmarks --enable-shoutcast --enable-apple-trailers --enable-metadata-store --enable-vimeo --enable-gravatar --enable-tracker --enable-bliptv --enable-localmetadata --enable-youtube
+%configure --disable-static --disable-goa --disable-gcov --enable-filesystem --disable-optical-media --enable-jamendo --enable-lastfm-albumart --enable-youtube --enable-flickr --disable-pocket --enable-podcasts --disable-bookmarks --enable-shoutcast --enable-apple-trailers --enable-magnatune --disable-lua-factory --enable-metadata-store --enable-vimeo --enable-gravatar --enable-tracker --enable-bliptv --enable-raitv --disable-localmetadata --enable-dleyna --disable-dmap --disable-thetvdb --disable-tmdb --disable-freebox --enable-opensubtitles
 
 make %{?jobs:-j%jobs}
 
@@ -221,10 +240,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/locale
 %{_libdir}/grilo-0.2/libgrlpodcasts.so
 %{_libdir}/grilo-0.2/grl-podcasts.xml
 
-%files -n grilo-plugin-bookmarks
-%defattr(-,root,root,-)
-%{_libdir}/grilo-0.2/libgrlbookmarks.so
-%{_libdir}/grilo-0.2/grl-bookmarks.xml
+# %files -n grilo-plugin-bookmarks
+# %defattr(-,root,root,-)
+# %{_libdir}/grilo-0.2/libgrlbookmarks.so
+# %{_libdir}/grilo-0.2/grl-bookmarks.xml
 
 %files -n grilo-plugin-shoutcast
 %defattr(-,root,root,-)
@@ -261,10 +280,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/locale
 %{_libdir}/grilo-0.2/libgrlbliptv.so
 %{_libdir}/grilo-0.2/grl-bliptv.xml
 
-%files -n grilo-plugin-localmetadata
-%defattr(-,root,root,-)
-%{_libdir}/grilo-0.2/libgrllocalmetadata.so
-%{_libdir}/grilo-0.2/grl-local-metadata.xml
+# %files -n grilo-plugin-localmetadata
+# %defattr(-,root,root,-)
+# %{_libdir}/grilo-0.2/libgrllocalmetadata.so
+# %{_libdir}/grilo-0.2/grl-local-metadata.xml
 
 %files -n grilo-plugin-raitv
 %defattr(-,root,root,-)
@@ -275,3 +294,13 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/locale
 %defattr(-,root,root,-)
 %{_libdir}/grilo-0.2/libgrlmagnatune.so
 %{_libdir}/grilo-0.2/grl-magnatune.xml
+
+%files -n grilo-plugin-dleyna
+%defattr(-,root,root,-)
+%{_libdir}/grilo-0.2/libgrldleyna.so
+%{_libdir}/grilo-0.2/grl-dleyna.xml
+
+%files -n grilo-plugin-opensubtitles
+%defattr(-,root,root,-)
+%{_libdir}/grilo-0.2/libgrlopensubtitles.so
+%{_libdir}/grilo-0.2/grl-opensubtitles.xml

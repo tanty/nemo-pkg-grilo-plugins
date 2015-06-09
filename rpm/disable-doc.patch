@@ -1,0 +1,18 @@
+diff --git a/configure.ac b/configure.ac
+index 16d2427..9cdaa9f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1403,7 +1403,12 @@ AC_SUBST([builddir])
+ # DOCUMENTATION
+ # ----------------------------------------------------------
+ 
+-YELP_HELP_INIT
++m4_ifdef([YELP_HELP_INIT], [
++  YELP_HELP_INIT
++],[
++  AC_SUBST(YELP_HELP_RULES, '')
++])
++
+ 
+ # ----------------------------------------------------------
+ # OUTPUT
